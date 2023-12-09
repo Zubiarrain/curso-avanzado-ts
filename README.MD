@@ -103,3 +103,76 @@ const takePicture = async () => {
 
 Al explorar las propiedades, podemos ver las opciones predefinidas en para que no exista la posibilidad de equivocarnos y pasar un argumento inválido.
 
+
+## Clase 4: Tuplas
+
+Nos permiten definir un array fuertemente tipado tanto en posición como en el “límite de elementos”, esto por defecto no esta en javascript ([**Esta propuesto en los ES Proposals en Stage 2**](https://www.proposals.es/proposals/Record%20%26%20Tuple)).
+
+```tsx
+const prices: (number | string)[] = [1,3,2,1,2,'as']
+prices.push(2)
+prices.push('Hello')
+
+let user:[string,number,boolean] = ['Franco', 25,true];
+
+//user = [36,'Franco',24]
+//user = []
+user = ['Fran', 25, false]
+```
+
+Con las tuplas además podemos hacer desestructuración:
+
+```tsx
+const [username, age] = user;
+console.log(username); //'Franco'
+```
+
+Este tipo de desestructuración las podemos ver en el react hook de `useState`.
+
+<aside>
+❗ Las tuplas de Typescript solo entran en acción en casos de reasignación de variables, pero igualmente nos siguen permitiendo hacer `.push()` que en el caso de la proposal no, ya que no van a tener métodos que muten directamente el array.
+
+</aside>
+
+**No debemos confiarnos del lÍmite en longitud, ya que este puede cambiar mutando el array.** Lo único que debemos “respetar” para poder hacerlo, es utilizar los mismos tipos que especificamos en la tupla.
+
+```tsx
+let user:[string,number] = ['Franco', 25];
+console.log(user) // ['Franco', 25]
+
+user.push('Carrara');
+//user.push(true); DA ERROR PORQUE NO ESTA BOOLEAN ESPECIFICADO EN LA TUPLA
+console.log(user) // ['Franco', 25, 'Carrara']
+//console.log(user[2]) ESTO DA ERROR
+console.log(user.at(-1)) // 'Carrara'
+
+user.map(item => console.log(item))
+// 'Franco'
+// 25
+// 'Carrara'
+```
+
+Con las tuplas, también podemos pasar un numero indefinido de valores de un tipo:
+
+```tsx
+const args: [boolean, ...number[], string] = [true, 2, 3, 4, 5, 6, "seven"]
+console.log(args)
+
+//[ true, 2, 3, 4, 5, 6, "seven"]
+```
+
+También podemos pasar valores opcionales
+
+```tsx
+let newTuple2: [boolean, string, number?] = [true, "variable"]; //Number is optional
+console.log(newTuple2);
+
+//[ true, "variable" ]
+```
+
+<aside>
+💡 Créditos a Victor por los dos últimos ejemplos sacados de su [**comentario**](https://platzi.com/comentario/3540961/).
+
+</aside>
+
+##
