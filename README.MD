@@ -227,4 +227,67 @@ if (typeof unknownVar === "boolean"){
 
 TypeScript, en este caso, a diferencia de como pasa con `any`, nos marca error si no verificamos los tipos antes.
 
+## Clase 6: Never
+
+Se usa para funciones que nunca van a terminar o que detienen el programa.
+
+```tsx
+const esUnCicloSinFin = () => {
+  while(true){
+    console.log('El Rey León')
+  }
+}
+```
+
+En este código, TS infiere que el tipo es never, ya que su ejecución será infinita.
+
+---
+
+En este caso, al hacer un throw se detiene la ejecución, por lo que TypeScript infiere que es never.
+
+```tsx
+const fail = (message: string) => {
+  throw new Error(message)
+}
+
+const example = (input:unknown) => {
+  if(typeof input === 'string'){
+    return 'Es un string'
+  }
+  else if (Array.isArray(input)){
+    return 'Es un array'
+  } else {
+    return fail('Not Match')
+  }
+}
+console.log(example('Franco')) //'Es un string'
+console.log(example(['Franco','Hola'])) // 'Es un array'
+console.log(example({username: 'Franco'})) // error: Uncaught Error: Not Match
+console.log(example('Franco de nuevo')) // NUNCA SE EJECUTA
+
+```
+
+---
+
+En el siguiente caso si bien es infinito, TS infiere que es void:
+
+```tsx
+const badFor = () => {
+  for(let i = 1; i < 10; i){
+    console.log(i)
+  }
+}
+```
+
+Lo mismo pasa con este ejemplo de función recursiva sin un escape. Si bien la función va a ser infinita (Y no es difícil de notarlo por nosotros mismos), TS no detecta el tipo `Never` y lo infiere como void.
+
+```tsx
+const badRecursion = () => {
+  if(true){
+    console.log('Oh sh*t here we go again')
+    badRecursion()
+  }
+}
+```
+
 ##
