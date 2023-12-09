@@ -390,4 +390,57 @@ const value = sum(1,2,3,4)
 console.log(value) //10
 ```
 
+## Clase 10: Sobrecarga de funciones
+
+En funciones que puedan retornar más de un tipo, tenemos que hacer una verificación de tipos posterior para poder utilizarlas por más que sepamos el tipo retornado o a tratar, ya que TS no puede inferirlo por si mismo. Esta sobrecarga de funciones, solo funciona en las funciones clásicas y no en las arrow functions.
+
+```tsx
+// 'Fran' => ['F', 'r', 'a', 'n'] : string => string[]
+// ['F', 'r', 'a', 'n'] => 'Fran' : string[] => string
+
+function parseStr(input: string | string[]): string | string[]{
+  if(Array.isArray(input)){
+    return input.join('');
+  } else {
+    return input.split('')
+  }
+}
+const rta1 = parseStr('Franco')
+//rta1.reverse(); Marca error, ya que TS no sabe que es un array. Deberiamos hacer una verifiación de tipos.
+console.log('rta1', rta1)
+const rta2 = parseStr(['F', 'r', 'a', 'n'])
+console.log('rta2', rta2)
+```
+
+Esto lo resolvemos de la siguiente manera:
+
+```tsx
+// 'Fran' => ['F', 'r', 'a', 'n'] : string => string[]
+// ['F', 'r', 'a', 'n'] => 'Fran' : string[] => string
+
+function parseStr(input: string): string[];
+function parseStr(input: string[]): string;
+
+function parseStr(input: string | string[]): string | string[]{
+  if(Array.isArray(input)){
+    return input.join('');
+  } else {
+    return input.split('')
+  }
+}
+const rta1 = parseStr('Franco')
+console.log('rta1', rta1)
+
+const rta2 = parseStr(['F', 'r', 'a', 'n'])
+console.log('rta2', rta2)
+```
+
+Si bien la lógica interna no cambia, no vamos a tener que hacer una verificación de tipos posterior ya que TS va a poder inferir qué tipo de dato es el output de una función.
+
+**Como evitar malas prácticas:**
+
+- En caso de en nuestra sobrecarga algún caso con `unknown`o `any`, debemos dejarlo al final, ya que sino va a fallar la verificación de tipos.
+- En caso de retornar lo mismo, y estamos realizando la sobrecarga de funciones debido a los parámetros, capaz sea mejor idea utilizar los optional params.
+- En los casos en los que los tipos de entrada sean de distintos tipos, pero el output sea del mismo tipo, es mejor utilizar los union types en vez de la sobrecarga de funciones.
+
 ##
