@@ -290,4 +290,70 @@ const badRecursion = () => {
 }
 ```
 
+## Clase 7: Parámetros opcionales y nullish-coalescing
+
+Los parámetros opcionales deben encontrarse al final.
+
+```tsx
+export const createProduct = (
+  id: string | number,
+	isNew: boolean,
+  stock?: number,
+) => {
+  return {
+    id,
+    stock,
+    isNew
+  }
+}
+const p1 = createProduct('Remera Fachera facherita', true, 20);
+console.log(p1)//{ id: "Remera Fachera facherita", stock: 20, isNew: true }
+const p2 = createProduct('Gorrita', false);
+console.log(p2) //{ id: "Gorrita", stock: undefined, isNew: false }
+```
+
+Con el `logical OR operator (||)` podemos cambiar ese undefined por un valor arbitrario, pero lo que evalúa es cualquier valor `falsy`.
+
+```tsx
+export const createProduct = (
+  id: string | number,
+	isNew: boolean,
+  stock?: number,
+) => {
+  return {
+    id,
+    stock: stock || 10,
+    isNew
+  }
+}
+
+const p2 = createProduct('Gorrita', false, 0);
+console.log(p2) //{ id: "Gorrita", stock: 10, isNew: false }
+```
+
+Esto lo podemos corregir utilizando el `Nullish Coalescing (??)` que nos va a evaluar si el parámetro es null o undefined.
+
+```tsx
+export const createProduct = (
+  id: string | number,
+	isNew: boolean,
+  stock?: number,
+) => {
+  return {
+    id,
+    stock: stock ?? 10,
+    isNew
+  }
+}
+
+const p2 = createProduct('Gorrita', false, 0);
+console.log(p2) //{ id: "Gorrita", stock: 0, isNew: false }
+```
+
+**Documentación:**
+
+[Logical OR (||) - JavaScript | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR)
+
+[Nullish coalescing operator (??) - JavaScript | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator)
+
 ##
