@@ -175,4 +175,56 @@ console.log(newTuple2);
 
 </aside>
 
+## Clase 5: Unknwon types
+
+Es un tipo que nos dice que la variable es desconocida, es similar a `any`, pero sin quitar el análisis de código estático que nos brinda TypeScript.
+
+```tsx
+let anyVar: any;
+anyVar = true;
+anyVar = 'Franco'
+anyVar = undefined;
+
+let isNew: boolean = anyVar; //Esto funciona porque anyVar, al tener any podría ser un boolean.
+
+let unknownVar: unknown;
+unknownVar = true;
+unknownVar = "Franco";
+unknownVar = 25;
+unknownVar = {};
+
+//unknownVar.toUpperCase(); Aca marca error porque no sabe si va a ser un string.
+
+if (typeof unknownVar === "string"){
+  unknownVar.toUpperCase()
+}
+```
+
+También la podemos usar en funciones si no sabemos exactamente que nos va a devolver.
+
+```tsx
+const parse = (str: string): unknown => {
+	return JSON.parse(str)
+}
+```
+
+Para realizar el ejemplo de la reasignación, lo podemos hacer de la siguiente manera:
+
+```tsx
+let unknownVar: unknown;
+unknownVar = true;
+unknownVar = "Franco";
+unknownVar = 25;
+unknownVar = {};
+
+//let isNew: boolean = unknownVar; Nos da error ya que pide que verifiquemos los tipos.
+let isNew: boolean;
+
+if (typeof unknownVar === "boolean"){
+  isNew = unknownVar
+}
+```
+
+TypeScript, en este caso, a diferencia de como pasa con `any`, nos marca error si no verificamos los tipos antes.
+
 ##
