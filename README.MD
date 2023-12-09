@@ -377,4 +377,17 @@ const p2 = createProduct('Gorrita', false, 0);
 console.log(p2) //{ id: "Gorrita", stock: 0, isNew: false }
 ```
 
+## Clase 9: parámetros rest
+
+Se apoyan en la flexibilidad de JS de poder enviar parámetros con total flexibilidad y poder pasar la cantidad de parámetros que queramos.
+
+```tsx
+const sum = (...arg:number[]) => {
+  const addition = arg.reduce((acc,num)=> acc + num, 0)
+  return addition;
+}
+const value = sum(1,2,3,4)
+console.log(value) //10
+```
+
 ##
