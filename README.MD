@@ -356,4 +356,25 @@ console.log(p2) //{ id: "Gorrita", stock: 0, isNew: false }
 
 [Nullish coalescing operator (??) - JavaScript | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator)
 
+## Clase 8: Parámetros por defecto
+
+Además del Nullish coalescing, podemos pasar parámetros por defecto con los **Default function parameters** de Javascript y lo hacemos en los parámetros con un signo igual.
+
+```tsx
+export const createProduct = (
+  id: string | number,
+	isNew: boolean,
+  stock: number = 0,
+) => {
+  return {
+    id,
+    stock,
+    isNew
+  }
+}
+
+const p2 = createProduct('Gorrita', false, 0);
+console.log(p2) //{ id: "Gorrita", stock: 0, isNew: false }
+```
+
 ##
