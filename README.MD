@@ -711,4 +711,17 @@ export interface User extends BaseModel {
 }
 ```
 
+## Clase 15: Propiedades de solo lectura
+
+En los atributos que no queramos que sean modificadas, podemos aplicar `readonly` que convierte estos atributos a solo lectura por lo que no se va a poder sobrescribir ni modificar.
+En nuestro caso, es muy útil para los campos de `id` y de `createdAt` ya que estos no deben cambiar.
+
+```tsx
+export interface BaseModel {
+  readonly id: string |number;
+  readonly createdAt: Date;
+  updatedAt: Date;
+}
+```
+
 ##
