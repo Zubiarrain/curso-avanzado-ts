@@ -561,4 +561,29 @@ window.ts.transpileModule(src, {});
 
 [Documentation - Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#:~:text=typed%20type%20system.-,Differences%20Between%20Type%20Aliases%20and%20Interfaces,-Type%20aliases%20and)
 
+## Clase 13: Estructuras complejas
+
+Muchas veces las interfaces pueden tener el mismo nombre que clases, por este motivo es recomendable agregar el sufijo Interface a las interfaces.
+
+```tsx
+class Person {
+    @code...
+}
+
+interface PersonInterface {
+    @code...
+}
+```
+
+<aside>
+💡 Créditos a Irving Juárez ([**Ver comentario**](https://platzi.com/comentario/3508679/))
+
+</aside>
+
+---
+
+Para manejar los datos, tenemos que dividirlos en distintos archivos para hacer este código más mantenible, separar sus responsabilidades y hacerlo más legible.
+
+Así como lo vimos en el curso de fundamentos, a los archivos de modelado de datos debemos llamarlos de la siguiente forma: `nombre.model.ts` y a los archivos que van a tratar dichos datos de la siguiente manera: `nombre.service.ts`. A su vez, los archivos que van a hacer uso de estos servicios deben llamarse `service.ts`.
+
 ##
