@@ -724,4 +724,35 @@ export interface BaseModel {
 }
 ```
 
+## Clase 16: Ejemplo de CRUD
+
+En esta clase comenzamos a hacer un CRUD para nuestra tienda. CRUD viene de las siglas en ingles de Create Read Update and Delete.
+
+Para llenar los datos de los productos hacemos uso de la librería Faker.js, que la instalamos con `npm install @faker-js/faker --save-dev`.
+
+Vamos a modificar nuestra interface Product para agregar nuevos campos:
+
+```tsx
+export interface Product extends BaseModel{
+  title: string;
+  image: string;
+  description: string;
+  stock: number;
+  size: Sizes;
+  color: string;
+  price: number;
+  category: Category;
+  isNew: boolean;
+  tags: string[];
+}
+```
+
+### Utility Types
+
+### DTOs
+
+Son los Data Transfer Objects o Objetos de Transferencia de Datos. Es una utilidad de TS para representar objetos que viajan por internet, ya que en algunos casos, al hacerse el `JSON.stringify()` , ya que lo que mandamos es un string, en algunos casos, al hacer el `JSON.parse()` algunos tipos pueden ser los incorrectos.
+
+[DTO - A typescript utility type](https://dev.to/tamj0rd2/dto-a-typescript-utility-type-4o3m)
+
 ##
