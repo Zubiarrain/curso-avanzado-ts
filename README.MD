@@ -586,4 +586,129 @@ Para manejar los datos, tenemos que dividirlos en distintos archivos para hacer 
 
 Así como lo vimos en el curso de fundamentos, a los archivos de modelado de datos debemos llamarlos de la siguiente forma: `nombre.model.ts` y a los archivos que van a tratar dichos datos de la siguiente manera: `nombre.service.ts`. A su vez, los archivos que van a hacer uso de estos servicios deben llamarse `service.ts`.
 
+## Clase 14: Extender interfaces
+
+Con la herencia, podemos extender distintos campos mediante la herencia como en la programación orientada a objetos.
+
+Para hacerlo, lo hacemos de la siguiente manera:
+
+
+```tsx
+interface Animal {
+  name: string
+}
+
+interface Bear extends Animal {
+  honey: boolean
+}
+
+const bear = getBear()
+bear.name
+bear.honey
+```
+
+Sin la herencia, lo que deberíamos hacer es repetir código en cada modelo:
+
+`category.model.ts`
+
+`products.model.ts`
+
+`user.model.ts`
+
+```tsx
+export interface Category {
+  id: string |number;
+  createdAt: Date;
+  updatedAt: Date;
+  name: string;
+}
+```
+
+```tsx
+import { Category } from "../category/category.model";
+
+export type Sizes = 'S' | 'M' | 'L' | 'XL'
+export interface Product {
+  id: string |number;
+  createdAt: Date;
+  updatedAt: Date;
+  title: string;
+  stock: number;
+  size: Sizes;
+  category: Category;
+}
+```
+
+```tsx
+export enum ROLES {
+  ADMIN = 'admin',
+  SELLER = 'seller',
+  CUSTOMER = 'customer'
+}
+
+export interface User {
+  id: string |number;
+  createdAt: Date;
+  updatedAt: Date;
+  username: string;
+  role: ROLES;
+}
+```
+
+Si vemos bien, en todos los modelos estamos repitiendo los campos de `id`, `createdAt` y `updatedAt` que lo podemos resolver muy fácil extendiendolo de otra interface.
+
+Creamos un archivo `base.model.ts`:
+
+```tsx
+export interface BaseModel {
+  id: string |number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+Y ahora simplemente con hacer los imports y extendiendo, ya podemos heredar esas propiedades de nuestra interface base.
+
+`category.model.ts`
+
+`products.model.ts`
+
+`user.model.ts`
+
+```tsx
+import { BaseModel } from "../base.model";
+
+export interface Category extends BaseModel{
+  name: string;
+}
+```
+
+```tsx
+import { Category } from "../category/category.model";
+import { BaseModel } from "../base.model";
+
+export type Sizes = 'S' | 'M' | 'L' | 'XL'
+export interface Product extends BaseModel{
+  title: string;
+  stock: number;
+  size: Sizes;
+  category: Category;
+}
+```
+
+```tsx
+import { BaseModel } from "../base.model";
+
+export enum ROLES {
+  ADMIN = 'admin',
+  SELLER = 'seller',
+  CUSTOMER = 'customer'
+}
+
+export interface User extends BaseModel {
+  username: string;
+  role: ROLES;
+}
+```
+
 ##
