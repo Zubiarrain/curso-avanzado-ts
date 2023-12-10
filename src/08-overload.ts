@@ -8,7 +8,7 @@ function parseStr(input: string | string[]): string | string[] {
   }
 }
 
-const rtaArray = parseStr('Nahu')
+const rtaArray = parseStr('Nahu') // Como la funcion puede devolver strings y arrays no me permite inferir el tipo de esta variable
 console.log(rtaArray)
 
 const rtaStr = parseStr(['N','a','h','u'])
