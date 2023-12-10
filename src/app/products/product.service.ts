@@ -1,5 +1,5 @@
 import { Product } from "./product.model";
-import { CreateProductDto, UpdateProductDto } from "./product.dto";
+import { CreateProductDto, UpdateProductDto, FindProductDto } from "./product.dto";
 import { faker } from "@faker-js/faker";
 
 export const products: Product[] = [];
@@ -51,4 +51,9 @@ export const updateProduct = (id: string | number, changes: UpdateProductDto): P
 export const deleteProduct = (id: string | number) => {
   const index = getIndexProduct(id)
   products.splice(index,1)
+}
+
+export const findProducts = (dto:FindProductDto): Product[] => {
+  //dto.color = 'blue' -> Error
+  return products
 }

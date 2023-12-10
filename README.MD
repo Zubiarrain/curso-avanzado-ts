@@ -854,4 +854,42 @@ export interface UpdateProductDto extends Partial<CreateProductDto> {
 
 </aside>
 
+## Clase 19: Readonly Type
+Con este utility type podemos establecer todos los parámetros como solo lectura para evitar que sean cambiados.
+
+```tsx
+interface DTO1 extends Readonly<Base> {
+		props: string;
+}
+
+type DTO2 = Readonly<Base>;
+```
+
+### Anidamiento de Utility Types
+
+A su vez podemos anidar distintos tipos utility types para fusionar características de los distintos utility types.
+
+```tsx
+interface DTO1 extends UtilityType1<UtilityType2<Base>> {
+		props: string;
+}
+
+type DTO2 = UtilityType1<UtilityType2<Base>>;
+```
+
+Ejemplo:
+
+```tsx
+export interface FindProductDto extends Readonly<Partial<Product>> {
+		props: string;
+}
+
+export type FindProductDto2 = Readonly<Partial<Product>>
+```
+
+<aside>
+💡 Créditos a **Axel Enrique Galeed Gutierrez ([Ver Comentario](https://platzi.com/comentario/3568689/))**
+
+</aside>
+
 ##
