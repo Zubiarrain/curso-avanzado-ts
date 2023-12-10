@@ -443,4 +443,122 @@ Si bien la lógica interna no cambia, no vamos a tener que hacer una verificaci�
 - En caso de retornar lo mismo, y estamos realizando la sobrecarga de funciones debido a los parámetros, capaz sea mejor idea utilizar los optional params.
 - En los casos en los que los tipos de entrada sean de distintos tipos, pero el output sea del mismo tipo, es mejor utilizar los union types en vez de la sobrecarga de funciones.
 
+## Clase 12: Interfaces
+
+Sirven para lo mismo que los tipos pero con algunas diferencias.
+
+Con tipos seria de la siguiente manera:
+
+```tsx
+type Sizes = 'S' | 'M' | 'L' | 'XL'
+type Product = {
+  id: string | number;
+  title: string;
+  stock: number;
+  size: Sizes
+}
+
+const products: Product[] = [];
+
+products.push(
+  {
+    id: 1,
+    title: 'product 1',
+    stock: 10,
+    size: 'XL'
+  }
+)
+```
+
+Y con interfaces, sería así:
+
+```tsx
+type Sizes = 'S' | 'M' | 'L' | 'XL'
+interface Product {
+  id: string | number;
+  title: string;
+  stock: number;
+  size: Sizes
+}
+
+const products: Product[] = [];
+
+products.push(
+  {
+    id: 1,
+    title: 'product 1',
+    stock: 10,
+    size: 'XL'
+  }
+)
+```
+
+Si bien son similares, tienen algunas diferencias:
+
+- Las interfaces se pueden extender de otras interfaces, por lo que puedo heredar los tipos de una interfaz distinta.
+- A las interfaces se le pueden agregar campos extra luego de ser creadas.
+
+Extendiendo con literal types:
+
+```tsx
+type Animal = {
+  name: string
+}
+
+type Bear = Animal & {
+  honey: boolean
+}
+
+const bear = getBear();
+bear.name;
+bear.honey;
+```
+
+Añadiendo nuevos campos con literal types:
+
+```tsx
+type Window = {
+  title: string
+}
+
+type Window = {
+  ts: TypeScriptAPI
+}
+
+ // Error: Duplicate identifier 'Window'.
+```
+
+Extendiendo con interfaces:
+
+```tsx
+interface Animal {
+  name: string
+}
+
+interface Bear extends Animal {
+  honey: boolean
+}
+
+const bear = getBear()
+bear.name
+bear.honey
+```
+
+Añadiendo nuevos campos con Interfaces:
+
+```tsx
+interface Window {
+  title: string
+}
+
+interface Window {
+  ts: TypeScriptAPI
+}
+
+const src = 'const a = "Hello World"';
+window.ts.transpileModule(src, {});
+```
+
+[Documentation - Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#:~:text=typed%20type%20system.-,Differences%20Between%20Type%20Aliases%20and%20Interfaces,-Type%20aliases%20and)
+
 ##
