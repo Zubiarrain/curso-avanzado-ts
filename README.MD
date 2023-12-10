@@ -755,4 +755,103 @@ Son los Data Transfer Objects o Objetos de Transferencia de Datos. Es una utilid
 
 [DTO - A typescript utility type](https://dev.to/tamj0rd2/dto-a-typescript-utility-type-4o3m)
 
+## Clase 17: Omit y Pick
+
+Omit es utilizado como su nombre lo indica, para omitir propiedades o campos que seleccionemos.
+
+En los casos en los que necesitamos extender la interfaz, nos conviene hacerlo con `interface` y agregar las propiedades, en cambio, cuando solo queremos omitir tipos, es mejor hacerlo con `type`.
+
+```tsx
+type DTO1 = Omit<Base, 'omited1' | 'omited2'>
+
+interface DTO2 extends Omit<Base, 'omited1' | 'omited2'>{
+  newProp: string;
+}
+```
+
+```tsx
+export interface Product extends BaseModel{
+  title: string;
+  image: string;
+  description: string;
+  stock: number;
+  size: Sizes;
+  color: string;
+  price: number;
+  category: Category;
+  isNew: boolean;
+  tags: string[];
+}
+
+interface CreateProductDTO2 extends Omit<Product, 'id' | 'createdAt' | 'updatedAt' | 'category'>{
+  categoryId: string;
+}
+```
+
+Pick es lo contrario a Omit. Este Utility Type nos permite utilizar los campos que yo elijo.
+
+```tsx
+type DTO1 = Pick<Base, 'picked1' | 'picked2'>
+
+interface DTO2 extends Pick<Base, 'picked1' | 'picked2'>{
+  newProp: string;
+}
+```
+
+### Buenas prácticas
+
+Una buena práctica es que los DTOs tengan su propio archivo.
+
+### Pequeña aclaración sobre nuestro código en esta clase
+
+En el caso de las categorías en los productos, cuando creamos un producto no es que creamos una categoría a la vez, esta ya viene creada y solo la relacionamos, tenemos que mandar solamente el ID de la categoría a la que está relacionado el producto.
+
+<aside>
+💡 Créditos a **Axel Enrique Galeed Gutierrez ([Ver Comentario](https://platzi.com/comentario/3567910/))**
+
+</aside>
+
+## Clase 18: Partial y Required Type
+
+El utility type `partial` nos permite definir que todos los parámetros de una interfaz son opcionales.
+
+```tsx
+interface InterfaceName extends Partial<Interface> {
+		statements
+}
+
+type TypeName = Partial<TypeOrInterface>;
+```
+
+`Required` nos permite colocar todos los parámetros como obligatorios.
+
+```tsx
+interface InterfaceName extends Required<Interface> {
+		statements
+}
+
+type TypeName = Required<TypeOrInterface>;
+```
+
+### Reutilización de DTOs
+
+Podemos reutilizar nuestro DTO normalmente, ya que son interfaces.
+
+```tsx
+import { Product } from "./product.model";
+
+export interface CreateProductDto extends Omit<Product, 'id' | 'createdAt' | 'updatedAt' | 'category'> {
+    categoryId: string;
+}
+
+export interface UpdateProductDto extends Partial<CreateProductDto> {
+
+}
+```
+
+<aside>
+💡 Créditos a **Axel Enrique Galeed Gutierrez** ([**Ver Comentario**](https://platzi.com/comentario/3568608/))
+
+</aside>
+
 ##
