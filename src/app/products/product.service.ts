@@ -30,13 +30,13 @@ export const addProduct = (data:CreateProductDto): Product => {
   return newProduct;
 }
 
-export const getProduct = (id: string | number) => {
+export const getProduct = (id: Product['id']) => {
   const index = getIndexProduct(id)
 
   return products[index]
 }
 
-export const updateProduct = (id: string | number, changes: UpdateProductDto): Product => {
+export const updateProduct = (id: Product['id'], changes: UpdateProductDto): Product => {
   const index = getIndexProduct(id)
   let product = products[index]
 
@@ -48,7 +48,7 @@ export const updateProduct = (id: string | number, changes: UpdateProductDto): P
   return products[index]
 }
 
-export const deleteProduct = (id: string | number) => {
+export const deleteProduct = (id: Product['id']) => {
   const index = getIndexProduct(id)
   products.splice(index,1)
 }

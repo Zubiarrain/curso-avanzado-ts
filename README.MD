@@ -892,4 +892,25 @@ export type FindProductDto2 = Readonly<Partial<Product>>
 
 </aside>
 
+## Clase 20: Acceder al tipado por indice
+
+Podemos acceder al tipado de una propiedad de forma similar a como accedemos a los valores dentro de un array, pero aplicado a una interfaz para obtener el tipo de dato de una propiedad. Al colocar el dato de esta forma evitamos que en caso de que cambie algún tipo de dato en nuestra interfaz aparezcan errores en los casos que no hayan inconsistencias propias del código.
+
+```tsx
+InterfaceName['property']
+```
+
+Ejemplo:
+
+```tsx
+const updateProduct = (idSearch: Product['id'])
+```
+
+Pasamos como tipo de dato el valor de la propiedad dentro de la interfaz.
+
+<aside>
+💡 Créditos a **Irving Juárez ([Ver Comentario](https://platzi.com/comentario/3509240/))** y **Axel Enrique Galeed Gutierrez ([Ver Comentario](https://platzi.com/comentario/3568737/))**
+
+</aside>
+
 ##
