@@ -913,4 +913,44 @@ Pasamos como tipo de dato el valor de la propiedad dentro de la interfaz.
 
 </aside>
 
-##
+## Clase 21: ReadonlyArray
+
+Este Type previene las mutaciones en los arrays. Este Utility Type quita los métodos mutables como `.pop()`, `.shift()`, `.push()`, `.unshift()` entre otros, por lo que vamos a tener un array de solo lectura.
+
+```tsx
+const inmutableArray = ReadonlyArray<Type> = [value];
+```
+
+```tsx
+function foo(arr: ReadonlyArray<string>) {
+  arr.slice(); // okay
+  arr.push("hello!"); // error!
+}
+
+/** Desde la versión 3.4 de TS tambien podemos usar esta sintaxis **/
+
+function foo2(arr: readonly string[]) {
+  arr.slice(); // okay
+  arr.push("hello!"); // error!
+}
+```
+
+**Ejemplo:**
+
+```tsx
+const numberArray = ReadonlyArray<number> = [1,2,3,4,5];
+```
+
+---
+
+En los casos en las que tenemos una interfaz que por dentro tiene un array, no vamos a poder reasignar el array, pero si lo vamos a poder mutar. Para corregir esto, dentro de la interfaz, debemos aplicar el `ReadonlyArray`
+
+**Ejemplo:**
+
+```tsx
+export interface FindProductDto extends Readonly<Partial<Omit<Product, 'tags'>>>{
+	readonly tags: ReadonlyArray<string>;
+}
+```
+
+#
